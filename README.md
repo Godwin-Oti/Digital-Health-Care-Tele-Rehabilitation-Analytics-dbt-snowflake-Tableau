@@ -190,5 +190,5 @@ The following actionable steps were recommended to operational leadership:
 
 ### ✍️ Author
 
-Godwin Oti
-Data Analyst
+**Godwin Oti:** Data Analyst
+
