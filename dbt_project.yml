@@ -1,0 +1,70 @@
+# -----------------------------------------------------------------------------
+# Project Configuration for Caspar Health - Digital Health Analytics Challenge
+# -----------------------------------------------------------------------------
+
+name: 'digital_health_analytics'
+version: '1.0.0'
+config-version: 2
+
+# The Snowflake profile name (must match the entry in ~/.dbt/profiles.yml)
+profile: 'digital_health'
+
+# -----------------------------------------------------------------------------
+# Project Paths
+# -----------------------------------------------------------------------------
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# -----------------------------------------------------------------------------
+# Build Artifacts
+# -----------------------------------------------------------------------------
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# -----------------------------------------------------------------------------
+# Models Configuration (Medallion Architecture)
+# -----------------------------------------------------------------------------
+models:
+  digital_health_analytics:
+
+    # Default: build as views unless overridden
+    +materialized: view
+    +database: DIGITAL_HEALTH_ANALYTICS
+
+    # ---------------- BRONZE LAYER ----------------
+    bronze:
+      +schema: RAW_DATA
+      +database: DIGITAL_HEALTH_ANALYTICS
+      +materialized: view
+      +tags: ["bronze", "raw"]
+      ## +description: "Raw data ingestion layer mirroring source CSVs from Caspar Health assignment."
+
+    # ---------------- SILVER LAYER ----------------
+    silver:
+      +schema: TRANSFORMED
+      +database: DIGITAL_HEALTH_ANALYTICS
+      +materialized: table
+      +tags: ["silver", "cleaned"]
+      ## +description: "Cleaned, conformed data layer for standardized patient, clinic, and module data."
+
+    # ---------------- GOLD LAYER ----------------
+    gold:
+      +schema: ANALYTICS
+      +database: DIGITAL_HEALTH_ANALYTICS
+      +materialized: table
+      +tags: ["gold", "analytics"]
+    ##  +description: "Final business-ready dataset for Caspar Health analytics and Tableau visualizations."
+
+# -----------------------------------------------------------------------------
+# Notes
+# -----------------------------------------------------------------------------
+# - All models will be created inside the DIGITAL_HEALTH_ANALYTICS database
+# - Each Medallion layer uses its own schema (RAW_DATA → TRANSFORMED → ANALYTICS)
+# - Fixes previous runtime error by ensuring schemas are valid and accessible
+# -----------------------------------------------------------------------------

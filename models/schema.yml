@@ -1,0 +1,51 @@
+version: 2
+
+sources:
+  - name: RAW_DATA
+    description: "Source schema containing raw CSV ingestion tables for the Caspar analytics task."
+    database: "DIGITAL_HEALTH_ANALYTICS"
+    schema: "RAW_DATA"
+    config:
+      target_schema: null  # Prevents 'ANALYTICS_DEV_' from being prepended to this source's schema
+    tables:
+      - name: CLINICS_WITH_PATIENTS_RAW
+        description: "Raw patient-level records with clinic assignment and registration metadata."
+      - name: CLINIC_GROUP_RAW
+        description: "Clinic group mapping metadata."
+      - name: MODULES_RAW
+        description: "Raw module completion data for patients across clinics."
+
+
+models:
+  - name: clinics_with_patients_cleaned
+    columns:
+      - name: patient_id
+        tests:
+          - not_null
+          - unique
+      - name: patient_created_at
+        tests:
+          - not_null
+
+  - name: clinic_group_cleaned
+    columns:
+      - name: clinic_id
+        tests:
+          - not_null
+          - unique
+
+  - name: patient_module_activity
+    description: "Final gold dataset for patient engagement and clinic performance analysis"
+    columns:
+      - name: patient_id
+        description: "Unique patient identifier"
+      - name: clinic_id
+        description: "Clinic identifier"
+      - name: clinic_group
+        description: "Clinic group or organization"
+      - name: patient_created_at
+        description: "Patient registration date"
+      - name: module_completion_date
+        description: "Date of module completion"
+      - name: number_of_modules
+        description: "Modules completed on the given date"
