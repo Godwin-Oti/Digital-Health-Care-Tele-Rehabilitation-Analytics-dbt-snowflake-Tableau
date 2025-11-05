@@ -35,7 +35,11 @@ The goal: build a scalable data foundation and visualize **therapy success**, **
 | **Gold (Analytics)** | Business-ready model combining all sources for reporting | `gold_patient_module_activity` |
 
 ### 🖼 Pipeline Overview  
-`📷 screenshots/dbt_pipeline.png`
+<p align="center">
+  <img src="Screenshot 2025-11-04 214529.png" alt="Daily Conversion and User Journey Dashboard" width="700"/>
+</p>
+
+**Figure 1:** *📸 Screenshot of dbt lineage view (Bronze → Silver → Gold).*
 
 ---
 
@@ -55,8 +59,11 @@ The goal: build a scalable data foundation and visualize **therapy success**, **
   - 🧭 *Under Review* – Low Volume / Low Success  
 - **Context Lines:** Average volume and success rates (LOD-calculated)
 
-`📷 screenshots/tableau_dashboard.png`
+<p align="center">
+  <img src="Screenshot 2025-11-05 113739.png" alt="Daily Conversion and User Journey Dashboard" width="700"/>
+</p>
 
+**Figure 2:** *📸 Screenshot of dashboard.*
 ---
 
 ## 🧱 Data Preparation (Snowflake + dbt)
@@ -81,7 +88,11 @@ The goal: build a scalable data foundation and visualize **therapy success**, **
 6. **Month–Year Parameter Filter**  
    → Replaced discrete year filters with dynamic *Month–Year parameters* for flexible granularity.
 
-`📷 screenshots/snowflake_final_table.png`
+<p align="center">
+  <img src="Screenshot 2025-11-04 215702.png" alt="Daily Conversion and User Journey Dashboard" width="700"/>
+</p>
+
+**Figure 3:** *📸 Screenshot of DIGITAL_HEALTH_ANALYTICS.GOLD.PATIENT_MODULE_ACTIVITY*
 
 ---
 
@@ -121,7 +132,7 @@ GROUP BY 1
 ORDER BY 1;
 
 ```
-
+---
 ### 📊 Tableau Calculated Fields
 
 The following custom fields were implemented in Tableau to define success, establish network averages, and segment performance.
@@ -133,7 +144,7 @@ The following custom fields were implemented in Tableau to define success, estab
 | **Avg Patient Volume (LOD)**          | `{ FIXED : AVG(COUNTD([Patient ID])) }`                                     | Global, fixed-level average patient volume for peer comparison.                                               |
 | **Clinic Quadrant Label**             | *Conditional logic using above fields*                                      | Conditional logic used to assign quadrant label and color for the color-coded assessment matrix segmentation. |
 
-
+---
 
 ### Key Findings & Strategic Conclusions
 
@@ -167,15 +178,15 @@ The following actionable steps were recommended to operational leadership:
 
 - Leading KPI: Continue tracking “Engagement Momentum” (average modules per active patient) as a leading Key Performance Indicator for early success prediction.
 
-
+---
 
 ### 🌐 Project Links
 
-📊 **Dashboard Preview:** [Attach video or image link]
+📊 **Dashboard Preview:** [ link]
 
-💻 **Portfolio Page:** [Your portfolio website link]
+💻 **Portfolio Page:** [portfolio website link]
 
-
+---
 
 ### ✍️ Author
 
